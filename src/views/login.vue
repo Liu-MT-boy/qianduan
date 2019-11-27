@@ -15,7 +15,7 @@
           <el-input v-model="loginForm.password" placeholder="请输入密码" prefix-icon="icon-key"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" class="login-btn">立即登录</el-button>
+          <el-button type="primary" class="login-btn" @click="loginsubmit">立即登录</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import { login } from '@/api/users.js'
 export default {
   data () {
     return {
@@ -40,9 +41,28 @@ export default {
         ],
         password: [
           { required: true, message: '请正确输入密码', trigger: 'blur' },
-          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+          { min: 3, max: 16, message: '长度在 3 到 16 个字符', trigger: 'blur' }
         ]
       }
+    }
+  },
+  methods: {
+    loginsubmit () {
+      this.$refs.loginForm.validate(async (valid) => {
+        if (valid) {
+          let res = await login(this.loginForm)
+          console.log(res)
+          if (res.data.message === '登录成功') {
+            this.$touter.push({ path: './index' })
+          } else {
+            this.$message.error(res.data.message)
+          }
+        } else {
+          this.$message.error('用户数据输入不合法')
+          // 终止本次请求
+          return false
+        }
+      })
     }
   }
 }
