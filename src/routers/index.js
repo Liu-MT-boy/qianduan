@@ -16,4 +16,18 @@ let router = new VueRouter({
     }
   ]
 })
+
+// 添加导航守卫
+router.beforeEach((to, from, next) => {
+  if (to.path !== './login') {
+    let token = localStorage.getItem('heima_back_39_token')
+    if (token) {
+      next()
+    } else {
+      next({ name: '/login' })
+    }
+  } else {
+    next()
+  }
+})
 export default router
