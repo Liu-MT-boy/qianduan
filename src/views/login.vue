@@ -28,8 +28,8 @@ export default {
   data () {
     return {
       loginForm: {
-        username: '',
-        password: ''
+        username: '10086',
+        password: '123'
       },
       rules: {
         username: [
@@ -56,7 +56,7 @@ export default {
             // 将token数据进行本地存储
             localStorage.setItem('heima_back_39_token', res.data.data.token)
             // 跳转到后台管理首页
-            this.$touter.push({ path: '/index' })
+            this.$router.push({ path: '/index' })
           } else {
             this.$message.error(res.data.message)
           }
