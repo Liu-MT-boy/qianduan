@@ -4,8 +4,8 @@
       <el-aside width="200px">
         <div class="logo"></div>
         <el-menu
-          :router="true"
-          :unique-opened="true"
+            :router='true'
+            :unique-opened='true'
           default-active="2"
           class="el-menu-vertical-demo"
           background-color="#545c64"
@@ -17,9 +17,9 @@
               <i class="el-icon-location"></i>
               <span>用户管理</span>
             </template>
-            <el-menu-item index="1-1">
-              <i class="el-icon-location"></i>
-              <span>用户列表</span>
+            <el-menu-item index="/users">
+                <i class="el-icon-location"></i>
+                <span>用户列表</span>
             </el-menu-item>
           </el-submenu>
           <el-submenu index="2">
@@ -27,13 +27,13 @@
               <i class="el-icon-location"></i>
               <span>文章管理</span>
             </template>
-            <el-menu-item index="2-1">
-              <i class="el-icon-location"></i>
-              <span>文章列表</span>
+            <el-menu-item index="postList">
+                <i class="el-icon-location"></i>
+                <span>文章列表</span>
             </el-menu-item>
-            <el-menu-item index="2-2">
-              <i class="el-icon-location"></i>
-              <span>文章发布</span>
+            <el-menu-item index="addPost">
+                <i class="el-icon-location"></i>
+                <span>文章发布</span>
             </el-menu-item>
           </el-submenu>
           <el-submenu index="3">
@@ -42,23 +42,23 @@
               <span>栏目管理</span>
             </template>
             <el-menu-item index="3-1">
-              <i class="el-icon-location"></i>
-              <span>栏目列表</span>
+                <i class="el-icon-location"></i>
+                <span>栏目列表</span>
             </el-menu-item>
           </el-submenu>
         </el-menu>
       </el-aside>
       <el-container>
         <el-header>
-          <span class="icon-paragraph-justify toggle-btn"></span>
-          <span class="system-title">黑马头条后台管理系统</span>
-          <div class="welcome">
-            <span>欢迎你：39期的小伙伴</span>&nbsp;&nbsp;&nbsp;
-            <span>退出</span>
-          </div>
+            <span class="icon-paragraph-justify toggle-btn"></span>
+            <span class="system-title">黑马头条后台管理系统</span>
+            <div class="welcome">
+                <span>欢迎你：39期的小伙伴</span>&nbsp;&nbsp;&nbsp;
+                <span>退出</span>
+            </div>
         </el-header>
         <el-main>
-          <router-view></router-view>
+            <router-view></router-view>
         </el-main>
       </el-container>
     </el-container>
