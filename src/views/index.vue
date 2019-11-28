@@ -2,9 +2,10 @@
   <div class="index">
     <el-container>
       <el-aside width="200px">
+        <div class="logo"></div>
         <el-menu
-          :router='true'
-          :unique-opened='true'
+          :router="true"
+          :unique-opened="true"
           default-active="2"
           class="el-menu-vertical-demo"
           background-color="#545c64"
@@ -18,11 +19,7 @@
             </template>
             <el-menu-item index="1-1">
               <i class="el-icon-location"></i>
-              <span>导航一</span>
-            </el-menu-item>
-            <el-menu-item index="1-2">
-              <i class="el-icon-location"></i>
-              <span>导航一</span>
+              <span>用户列表</span>
             </el-menu-item>
           </el-submenu>
           <el-submenu index="2">
@@ -32,11 +29,11 @@
             </template>
             <el-menu-item index="2-1">
               <i class="el-icon-location"></i>
-              <span>导航一</span>
+              <span>文章列表</span>
             </el-menu-item>
             <el-menu-item index="2-2">
               <i class="el-icon-location"></i>
-              <span>导航一</span>
+              <span>文章发布</span>
             </el-menu-item>
           </el-submenu>
           <el-submenu index="3">
@@ -46,18 +43,23 @@
             </template>
             <el-menu-item index="3-1">
               <i class="el-icon-location"></i>
-              <span>导航一</span>
-            </el-menu-item>
-            <el-menu-item index="3-2">
-              <i class="el-icon-location"></i>
-              <span>导航一</span>
+              <span>栏目列表</span>
             </el-menu-item>
           </el-submenu>
         </el-menu>
       </el-aside>
       <el-container>
-        <el-header>Header</el-header>
-        <el-main>Main</el-main>
+        <el-header>
+          <span class="icon-paragraph-justify toggle-btn"></span>
+          <span class="system-title">黑马头条后台管理系统</span>
+          <div class="welcome">
+            <span>欢迎你：39期的小伙伴</span>&nbsp;&nbsp;&nbsp;
+            <span>退出</span>
+          </div>
+        </el-header>
+        <el-main>
+          <router-view></router-view>
+        </el-main>
       </el-container>
     </el-container>
   </div>

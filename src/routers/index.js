@@ -5,21 +5,31 @@ import VueRouter from 'vue-router'
 // 引入路由所映射的组件
 import Login from '@/views/login.vue'
 import Index from '@/views/index.vue'
+import Wel from '@/views/welcomePage.vue'
 // vue
 Vue.use(VueRouter)
 // 创建路由对象
 let router = new VueRouter({
-  routes: [
-    {
-      name: 'Login',
-      path: '/login',
-      component: Login
-    },
-    {
-      name: 'Index',
-      path: '/index',
-      component: Index
-    }
+  routes: [{
+    name: 'Login',
+    path: '/login',
+    component: Login
+  },
+  {
+    name: 'Index',
+    path: '/index',
+    component: Index,
+    // 添加重定向，让其默认展示欢迎界面
+    redirect: { name: 'Wel' },
+    // 添加路由嵌套
+    children: [
+      {
+        name: 'Wel',
+        path: 'wel',
+        component: Wel
+      }
+    ]
+  }
   ]
 })
 
@@ -30,7 +40,9 @@ router.beforeEach((to, from, next) => {
     if (token) {
       next()
     } else {
-      next({ path: '/login' })
+      next({
+        path: '/login'
+      })
     }
   } else {
     next()
