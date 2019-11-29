@@ -1,18 +1,20 @@
 <template>
   <div class="login">
     <div class="container">
-        <img src="../assets/avatar.jpg" alt="" class="avatar">
-      <el-form
-        :model="loginForm"
-        :rules="rules"
-        ref="loginForm"
-        class="demo-ruleForm"
-      >
+      <img src="../assets/avatar.jpg" alt class="avatar" />
+      <el-form :model="loginForm" :rules="rules" ref="loginForm" class="demo-ruleForm">
         <el-form-item prop="username">
-          <el-input v-model="loginForm.username" placeholder="请输入用户名" prefix-icon="icon-user-check"></el-input>
+          <el-input v-model="loginForm.username"
+          placeholder="请输入用户名"
+          prefix-icon="icon-user-check"
+          ></el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input v-model="loginForm.password" placeholder="请输入密码" prefix-icon="icon-key"></el-input>
+          <el-input v-model="loginForm.password"
+          placeholder="请输入密码"
+          prefix-icon="icon-key"
+          @keydown.enter.native="loginsubmit"
+          ></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" class="login-btn" @click="loginsubmit">立即登录</el-button>
@@ -48,7 +50,7 @@ export default {
   },
   methods: {
     loginsubmit () {
-      this.$refs.loginForm.validate(async (valid) => {
+      this.$refs.loginForm.validate(async valid => {
         if (valid) {
           let res = await login(this.loginForm)
           console.log(res)

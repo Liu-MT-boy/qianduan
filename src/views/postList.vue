@@ -10,8 +10,16 @@
     <el-table border :data="postList" style="width: 100%;margin-top:20px">
       <el-table-column type="index" width="50"></el-table-column>
       <el-table-column prop="title" label="标题" width="470"></el-table-column>
-      <el-table-column prop="create_date" label="时间" width="200"></el-table-column>
-      <el-table-column prop="type" label="类型" width="50"></el-table-column>
+      <el-table-column label="时间" width="200">
+        <template  slot-scope="scope">
+          {{scope.row.create_date | dateFormat}}
+        </template>
+      </el-table-column>
+      <el-table-column label="类型" width="50">
+        <template  slot-scope="scope">
+          {{scope.row.type | typeFormat}}
+        </template>
+</el-table-column>
       <el-table-column prop="user.nickname" label="作者" width="120"></el-table-column>
       <el-table-column label="操作" width="230">
         <template slot-scope="scope">
@@ -48,6 +56,20 @@ export default {
       postList: [],
       pageIndex: 1,
       pageSize: 2
+    }
+  },
+  // 定义局部过滤器
+  filters: {
+    typeFormat (type) {
+      return type === 1 ? '文章' : '视频'
+    },
+    dateFormat (data, spe) {
+      data = new Date(data)
+      spe = spe || '/'
+      var year = data.getFullYear()
+      var month = data.getMonth() + 1
+      var day = data.getDate()
+      return year + spe + month + spe + day
     }
   },
   methods: {
