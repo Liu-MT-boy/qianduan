@@ -19,7 +19,19 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="内容" v-if="postForm.type === 1">
-            <VueEditor :config="config"/>
+          <VueEditor :config="config" />
+        </el-form-item>
+        <el-form-item label="内容" v-if="postForm.type === 2">
+          <el-upload
+            class="upload-demo"
+            :headers="getToken()"
+            action="http://localhost:3000/upload"
+            :on-success="onsuccess"
+            :file-list="fileList"
+          >
+            <el-button size="small" type="primary">点击上传</el-button>
+            <div slot="tip" class="el-upload__tip">只能上传视频文件</div>
+          </el-upload>
         </el-form-item>
         <el-button type="primary" @click="pulishPost">发布文章</el-button>
       </el-form>
@@ -36,6 +48,7 @@ export default {
   },
   data () {
     return {
+      fileList: [],
       postForm: {
         title: '',
         content: '',
@@ -44,7 +57,7 @@ export default {
         type: 1
       },
       config: {
-      // 上传图片的配置
+        // 上传图片的配置
         uploadImage: {
           url: 'http://localhost:3000/upload',
           // 后台需要的参数名称
@@ -70,6 +83,17 @@ export default {
     }
   },
   methods: {
+    // 添加成功时的钩子函数
+    onsuccess (response, file, fileList) {
+      console.log(response)
+      console.log(file)
+      console.log(fileList)
+      if (response.message === '文件上传成功') {
+        this.postForm.content = 'http://localhost:3000' + response.data.url
+        this.$message.success(response.message)
+      }
+    },
+    // 返回设置token的对象
     getToken () {
       return {
         Authorization: localStorage.getItem('heima_back_39_token')
