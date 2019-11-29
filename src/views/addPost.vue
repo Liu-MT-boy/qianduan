@@ -18,6 +18,9 @@
             <el-radio :label="2">视频</el-radio>
           </el-radio-group>
         </el-form-item>
+        <el-form-item label="内容" v-if="postForm.type === 1">
+            <VueEditor :config="config"/>
+        </el-form-item>
         <el-button type="primary" @click="pulishPost">发布文章</el-button>
       </el-form>
     </el-card>
@@ -25,7 +28,12 @@
 </template>
 
 <script>
+import VueEditor from 'vue-word-editor'
+import 'quill/dist/quill.snow.css'
 export default {
+  components: {
+    VueEditor
+  },
   data () {
     return {
       postForm: {
@@ -34,6 +42,27 @@ export default {
         categories: [],
         cover: [],
         type: 1
+      },
+      config: {
+      // 上传图片的配置
+        uploadImage: {
+          url: 'http://localhost:3000/upload',
+          name: 'file',
+          // res是结果，insert方法会把内容注入到编辑器中，res.data.url是资源地址
+          uploadSuccess (res, insert) {
+            console.log(res)
+            insert('http://localhost:3000' + res.data.url)
+          }
+        },
+
+        // 上传视频的配置
+        uploadVideo: {
+          url: 'http://localhost:3000/upload',
+          name: 'file',
+          uploadSuccess (res, insert) {
+            insert('http://localhost:3000' + res.data.url)
+          }
+        }
       }
     }
   },
