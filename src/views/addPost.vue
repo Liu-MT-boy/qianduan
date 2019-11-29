@@ -33,6 +33,17 @@
             <div slot="tip" class="el-upload__tip">只能上传视频文件</div>
           </el-upload>
         </el-form-item>
+        <el-form-item label="封面">
+          <el-upload
+            action="http://localhost:3000/upload"
+            :headers="getToken()"
+            :on-success="imgSuccess"
+            :on-remove="imgRemove"
+            list-type="picture-card"
+          >
+            <i class="el-icon-plus"></i>
+          </el-upload>
+        </el-form-item>
         <el-button type="primary" @click="pulishPost">发布文章</el-button>
       </el-form>
     </el-card>
@@ -83,6 +94,26 @@ export default {
     }
   },
   methods: {
+    // 封面图片删除时的钩子函数
+    imgRemove (file, fileList) {
+      console.log(file)
+      console.log(fileList)
+      // 根据本次移除的图片信息去删除postForm的cover中的图片存储信息
+      for (let i = 0; i < this.postForm.cover.length; i++) {
+        if (this.postForm.cover[i].id === file.response.data.id) {
+          this.postForm.cover.splice(i, 1)
+        }
+      }
+    },
+    // 封面图片上传成功后的钩子函数
+    imgSuccess (response, file, fileList) {
+      console.log(response)
+      if (response.message === '文件上传成功') {
+        this.postForm.cover.push({
+          id: response.data.id
+        })
+      }
+    },
     // 添加成功时的钩子函数
     onsuccess (response, file, fileList) {
       console.log(response)
