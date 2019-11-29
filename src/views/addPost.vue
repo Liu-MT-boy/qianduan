@@ -47,11 +47,14 @@ export default {
       // 上传图片的配置
         uploadImage: {
           url: 'http://localhost:3000/upload',
+          // 后台需要的参数名称
           name: 'file',
+          // 设置headers,传递token
+          headers: this.getToken(),
           // res是结果，insert方法会把内容注入到编辑器中，res.data.url是资源地址
           uploadSuccess (res, insert) {
             console.log(res)
-            insert('http://localhost:3000' + res.data.url)
+            insert('http://localhost:3000' + res.data.data.url)
           }
         },
 
@@ -67,6 +70,11 @@ export default {
     }
   },
   methods: {
+    getToken () {
+      return {
+        Authorization: localStorage.getItem('heima_back_39_token')
+      }
+    },
     pulishPost () {
       console.log(this.postForm)
     }
