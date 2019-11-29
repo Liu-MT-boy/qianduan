@@ -19,7 +19,7 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="内容" v-if="postForm.type === 1">
-          <VueEditor :config="config" />
+          <VueEditor :config="config" ref="vueEditor" />
         </el-form-item>
         <el-form-item label="内容" v-if="postForm.type === 2">
           <el-upload
@@ -100,6 +100,10 @@ export default {
       }
     },
     pulishPost () {
+      // 获取富文本框的内容，当type为1的时候才需要获取
+      if (this.postForm.type === 1) {
+        this.postForm.content = this.$refs.vueEditor.editor.root.innerHTML
+      }
       console.log(this.postForm)
     }
   }
