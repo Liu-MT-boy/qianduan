@@ -8,7 +8,7 @@
     </el-breadcrumb>
     <!-- 表格 -->
     <el-table border :data="postList" style="width: 100%;margin-top:20px">
-      <el-table-column type="index" width="50"></el-table-column>
+      <el-table-column type="index" width="55"></el-table-column>
       <el-table-column prop="title" label="标题" width="470"></el-table-column>
       <el-table-column label="时间" width="200">
         <template  slot-scope="scope">
